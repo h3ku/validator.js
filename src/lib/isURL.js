@@ -21,7 +21,7 @@ validate_length - if set as false isURL will skip string length validation (IE m
 
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
-  protocols_blacklist
+  protocols_blacklist: [],
   require_tld: true,
   require_protocol: false,
   require_host: true,
