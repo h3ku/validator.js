@@ -10,6 +10,7 @@ options for isURL method
 require_protocol - if set as true isURL will return false if protocol is not present in the URL
 require_valid_protocol - isURL will check if the URL's protocol is present in the protocols option
 protocols - valid protocols can be modified with this option
+protocols_blacklist - list of disallowed protocols
 require_host - if set as false isURL will not check if host is present in the URL
 require_port - if set as true isURL will check if port is present in the URL
 allow_protocol_relative_urls - if set as true protocol relative URLs will be allowed
@@ -20,6 +21,7 @@ validate_length - if set as false isURL will skip string length validation (IE m
 
 const default_url_options = {
   protocols: ['http', 'https', 'ftp'],
+  protocols_blacklist
   require_tld: true,
   require_protocol: false,
   require_host: true,
@@ -83,6 +85,9 @@ export default function isURL(url, options) {
   if (split.length > 1) {
     protocol = split.shift().toLowerCase();
     if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
+      return false;
+    }
+    if (options.protocols_blacklist.indexOf(protocol) !== -1)) {
       return false;
     }
   } else if (options.require_protocol) {
